@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DiaryService } from 'src/app/services/diary.service';
 import { TableComponent } from '../generals/table/table.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivityRegisterComponent } from '../activity-register/activity-register.component';
 
 @Component({
   selector: 'app-diary',
@@ -19,7 +21,7 @@ export class DiaryComponent implements OnInit {
     { property: "description", name: "Description" },
   ];
 
-  constructor(private diaryService: DiaryService) { }
+  constructor(private diaryService: DiaryService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getDiary();
@@ -37,6 +39,14 @@ export class DiaryComponent implements OnInit {
         console.log("There was an error in retrieving data from the server", error);
       },
       complete: () => console.log('Observer got a complete notification'),
+    });
+  }
+
+  openDialog() : void {
+    const dialogRef = this.dialog.open(ActivityRegisterComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 

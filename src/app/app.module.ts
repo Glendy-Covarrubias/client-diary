@@ -10,21 +10,32 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableComponent } from './components/generals/table/table.component';
 import { DiaryComponent } from './components/diary/diary.component';
+import { ActivityRegisterComponent } from './components/activity-register/activity-register.component';
+import { TelInputComponent } from './components/generals/tel-input/tel-input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    DiaryComponent
+    DiaryComponent,
+    ActivityRegisterComponent,
+    TelInputComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -33,6 +44,10 @@ import { DiaryComponent } from './components/diary/diary.component';
     MatButtonModule,
     MatTableModule,
     MatSliderModule,
+    MatDialogModule,
+    MatInputModule,
+    MatGridListModule,
+    MatFormFieldModule,
     BrowserAnimationsModule
   ],
   exports: [],

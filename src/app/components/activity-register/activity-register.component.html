@@ -1,0 +1,36 @@
+<section>
+    <form class="example-form" [formGroup]="activityForm">
+        <h2 mat-dialog-title>Add Activity</h2>
+        <mat-dialog-content class="mat-typography">
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Ex. Pizza" value="Sushi">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Phone number</mat-label>
+                    <!--formControlName="tel" -->
+                    <app-tel-input formControlName="tel" required></app-tel-input>
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-hint>Include area code</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+                </mat-form-field>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-raised-button color="primary">Save</button>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <!--<button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+        </mat-dialog-actions>
+    </form>
+</section>
+
