@@ -1,5 +1,9 @@
-<div>
+<section class="container-section">
    <h1>Bitacora</h1>
-   <button mat-button (click)="openDialog()">Agregar</button>
-   <app-table #tableDiary></app-table>
-</div>
+   <div align="end">
+      <button mat-stroked-button color="primary" (click)="openDialog()">Agregar</button>
+   </div>
+   <div class="container-table">
+      <app-table #tableDiary></app-table>
+   </div>
+</section>

@@ -1,3 +1,13 @@
+.container-section {
+    margin: 0 10px;
+    align-content: center;
+    align-items: center;
+}
+
+.container-table {
+    margin-top: 1em;
+}
+
 table {
     width: 100%;
 }
