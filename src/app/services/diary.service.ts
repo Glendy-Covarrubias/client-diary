@@ -16,4 +16,10 @@ export class DiaryService {
   public getAllDiary(): Observable<Array<Diary>>{
     return this.http.get<Array<Diary>>(`${this.endpoint}/diaries`);
   }
+
+  public createDiary(data: Diary): Observable<Diary>{
+    console.log("SAVE SERVICIO:", data);
+    //this.endpoint + `/monitor-califica/lotes`
+    return this.http.post<Diary>(`${this.endpoint}/diary`, data);
+  }
 }

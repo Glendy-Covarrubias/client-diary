@@ -29,11 +29,11 @@ export class DiaryComponent implements OnInit {
 
   private getDiary(): void {
     this.diaryService.getAllDiary().subscribe({
-      next: (response) => {
-        console.log("Response: ", response);
+      next: (response: any) => {
+        console.log("Response: ", response.data);
         //this.tableDiary.setDataColums(["id", "createdAt", "updatedAt", "name", "priority", "status", "description", "ownerId"]);
         this.tableDiary.setDataColums(this.configColumns);
-        this.tableDiary.setDataRows(response);
+        this.tableDiary.setDataRows(response.data);
       },
       error: (error) => {
         console.log("There was an error in retrieving data from the server", error);
@@ -44,10 +44,14 @@ export class DiaryComponent implements OnInit {
 
   openDialog() : void {
     const dialogRef = this.dialog.open(ActivityRegisterComponent);
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log("SAVE MODAL: ", result);
+      this.getDiary();
     });
+  }
+
+  closeDialog() : void {
+    console.log("SAVE CERRAR MODAL")
   }
 
 }

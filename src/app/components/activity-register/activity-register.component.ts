@@ -10,6 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Priority } from '../../interfaces/priority';
+import { DiaryService } from 'src/app/services/diary.service';
+
 
 @Component({
   selector: 'app-activity-register',
@@ -22,6 +24,7 @@ export class ActivityRegisterComponent implements OnInit {
   telInput!: TelInputComponent;
 
   public activityForm: FormGroup;
+  public closeModal: boolean = false;
 
   priorities: Priority[] = [
     {name: 'High', value: 1},
@@ -29,13 +32,23 @@ export class ActivityRegisterComponent implements OnInit {
     {name: 'low', value: 3}
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  statues: Priority[] = [
+    {name: 'Process', value: 1},
+    {name: 'Stopped', value: 2},
+    {name: 'Done', value: 3}
+  ];
+
+  // email: ['', [Validators.email, Validators.minLength(0), Validators.maxLength(100)]],
+  //dateExpirationTodayPF: ['', []],
+  constructor(private formBuilder: FormBuilder, private diaryService: DiaryService) {
     this.activityForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      priority: new FormControl('', Validators.required),
-      time: new FormControl('', Validators.required),
-      tel: new FormControl(new MyTel('', '', ''))
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      priority: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      ownerId: [1,[]]
+      //time: new FormControl('', Validators.required),
+      //tel: new FormControl(new MyTel('', '', ''))
     });
   }
 
@@ -48,7 +61,13 @@ export class ActivityRegisterComponent implements OnInit {
   }
 
   save(): void {
-    console.log("SAVE DATOS: ", this.activityForm);
+    console.log("SAVE DATOS: ", this.activityForm.value);
+    /*this.diaryService.createDiary(this.activityForm.value).subscribe({
+      next: (v) => console.log(`SAVE RESPONSE NEXT:`, v),
+      error: (e) => console.error(`SAVE RESPONSE ERROR:`, e),
+      complete: () => {
+        console.info(`SAVE RESPONSE COMPLETE`);
+      }
+    });*/
   }
-
 }
