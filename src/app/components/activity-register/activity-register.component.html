@@ -22,7 +22,7 @@
                     <mat-label>Priority</mat-label>
                     <mat-select formControlName="priority" required>
                         <mat-option disabled>Select option</mat-option>
-                        <mat-option *ngFor="let priorityOpcion of priorities" [value]="priorityOpcion">
+                        <mat-option *ngFor="let priorityOpcion of priorities" [value]="priorityOpcion.value">
                             {{priorityOpcion.name}}
                         </mat-option>
                     </mat-select>
@@ -30,6 +30,18 @@
             </div>
 
             <div>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Statues</mat-label>
+                    <mat-select formControlName="status" required>
+                        <mat-option disabled>Select option</mat-option>
+                        <mat-option *ngFor="let statusOption of statues" [value]="statusOption.name">
+                            {{statusOption.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!--<div>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Time</mat-label>
                     <input matInput type="time" min="09:00" max="18:00" formControlName="time">
@@ -55,7 +67,7 @@
                     </mat-icon>
                     <mat-hint>Include area code</mat-hint>
                 </mat-form-field>
-            </div>
+            </div> -->
         </mat-dialog-content>
         <mat-dialog-actions align="end">
             <button type="submit" mat-raised-button color="primary">Save</button>
