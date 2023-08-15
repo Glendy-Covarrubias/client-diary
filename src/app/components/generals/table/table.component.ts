@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
 import {MatPaginator} from '@angular/material/paginator';
 
@@ -15,6 +15,8 @@ export interface ColumsElement {
 })
 export class TableComponent implements OnInit {
 
+  @Output() saveDelete: EventEmitter<number> = new EventEmitter<number>();
+  
   dataSourceColums: ColumsElement[] = [];
   columnsToDisplay: string[] = this.dataSourceColums.map(x => x.property);
   dataSource: Diary[] = [];
@@ -33,5 +35,10 @@ export class TableComponent implements OnInit {
 
   async setDataRows(dataRows: any): Promise<void> {
     this.dataSource = dataRows;
+  }
+
+  deleteRecord(id: number) {
+    console.log("Se eliminar el numero de registro hijo: ", id);
+    this.saveDelete.emit(id);
   }
 }
