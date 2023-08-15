@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import { TableComponent } from './table.component';
 
 describe('TableComponent', () => {

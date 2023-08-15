@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
+import {MatPaginator} from '@angular/material/paginator';
 
 export interface ColumsElement {
   property: string;
   name: string;
+  actions: []
 }
 
 @Component({

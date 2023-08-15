@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MyTel, TelInputComponent } from '../generals/tel-input/tel-input.component';
+import { MatDialog } from '@angular/material/dialog';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -27,26 +28,26 @@ export class ActivityRegisterComponent implements OnInit {
   public closeModal: boolean = false;
 
   priorities: Priority[] = [
-    {name: 'High', value: 1},
-    {name: 'Half', value: 2},
-    {name: 'low', value: 3}
+    { name: 'High', value: 1 },
+    { name: 'Half', value: 2 },
+    { name: 'low', value: 3 }
   ];
 
   statues: Priority[] = [
-    {name: 'Process', value: 1},
-    {name: 'Stopped', value: 2},
-    {name: 'Done', value: 3}
+    { name: 'Process', value: 1 },
+    { name: 'Stopped', value: 2 },
+    { name: 'Done', value: 3 }
   ];
 
   // email: ['', [Validators.email, Validators.minLength(0), Validators.maxLength(100)]],
   //dateExpirationTodayPF: ['', []],
-  constructor(private formBuilder: FormBuilder, private diaryService: DiaryService) {
+  constructor(private formBuilder: FormBuilder, private diaryService: DiaryService, public dialog: MatDialog) {
     this.activityForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       priority: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      ownerId: [1,[]]
+      ownerId: [1, []]
       //time: new FormControl('', Validators.required),
       //tel: new FormControl(new MyTel('', '', ''))
     });
@@ -61,13 +62,17 @@ export class ActivityRegisterComponent implements OnInit {
   }
 
   save(): void {
-    console.log("SAVE DATOS: ", this.activityForm.value);
-    /*this.diaryService.createDiary(this.activityForm.value).subscribe({
-      next: (v) => console.log(`SAVE RESPONSE NEXT:`, v),
-      error: (e) => console.error(`SAVE RESPONSE ERROR:`, e),
-      complete: () => {
-        console.info(`SAVE RESPONSE COMPLETE`);
-      }
-    });*/
+    console.log("SAVE DATOS: ", this.activityForm.invalid, this.activityForm.value);
+
+    if (!this.activityForm.invalid) {
+      this.diaryService.createDiary(this.activityForm.value).subscribe({
+        next: (v) => console.log(`SAVE RESPONSE NEXT:`, v),
+        error: (e) => console.error(`SAVE RESPONSE ERROR:`, e),
+        complete: () => {
+          console.info(`SAVE RESPONSE COMPLETE`);
+          this.dialog.closeAll();
+        }
+      });
+    }
   }
 }

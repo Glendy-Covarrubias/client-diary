@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DiaryService } from 'src/app/services/diary.service';
 import { TableComponent } from '../generals/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivityRegisterComponent } from '../activity-register/activity-register.component';
+import { ActivityRegisterComponent } from 'src/app/components/activity-register/activity-register.component';
 
 @Component({
   selector: 'app-diary',
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.css']
 })
-export class DiaryComponent implements OnInit {
+export class DiaryComponent implements OnInit  {
 
   @ViewChild('tableDiary')
   tableDiary!: TableComponent;
@@ -19,6 +19,7 @@ export class DiaryComponent implements OnInit {
     { property: "name", name: "Propietario" },
     { property: "status", name: "Estatus" },
     { property: "description", name: "Description" },
+    { property: "action", name: "Action", actions: ["action_update", "action_delete"] }
   ];
 
   constructor(private diaryService: DiaryService, public dialog: MatDialog) { }
@@ -45,13 +46,8 @@ export class DiaryComponent implements OnInit {
   openDialog() : void {
     const dialogRef = this.dialog.open(ActivityRegisterComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log("SAVE MODAL: ", result);
       this.getDiary();
     });
-  }
-
-  closeDialog() : void {
-    console.log("SAVE CERRAR MODAL")
   }
 
 }
