@@ -50,4 +50,18 @@ export class DiaryComponent implements OnInit  {
     });
   }
 
+  async deleteRecord(id: number): Promise<void> {
+    console.log("REVISIÓN padre:", id)
+    this.diaryService.deleteRecord(id).subscribe({
+      next: (response: any) => {
+        console.log("Response delete: ", response);
+        this.getDiary();
+      },
+      error: (error) => {
+        console.log("There was an error in retrieving data from the server delete", error);
+      },
+      complete: () => console.log('Observer got a complete notification delete'),
+    })
+  }
+
 }

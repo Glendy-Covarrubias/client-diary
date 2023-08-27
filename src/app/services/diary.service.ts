@@ -22,4 +22,8 @@ export class DiaryService {
     //this.endpoint + `/monitor-califica/lotes`
     return this.http.post<Diary>(`${this.endpoint}/diary`, data);
   }
+
+  public deleteRecord(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.endpoint}/diary/${id}`);
+  }
 }

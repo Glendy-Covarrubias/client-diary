@@ -4,6 +4,6 @@
       <button mat-stroked-button color="primary" (click)="openDialog()">Agregar</button>
    </div>
    <div class="container-table">
-      <app-table #tableDiary></app-table>
+      <app-table #tableDiary (saveDelete) = "deleteRecord($event)"></app-table>
    </div>
 </section>
