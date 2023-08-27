@@ -55,6 +55,7 @@ export class DiaryComponent implements OnInit  {
     this.diaryService.deleteRecord(id).subscribe({
       next: (response: any) => {
         console.log("Response delete: ", response);
+        this.getDiary();
       },
       error: (error) => {
         console.log("There was an error in retrieving data from the server delete", error);

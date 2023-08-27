@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
 import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface ColumsElement {
   property: string;
@@ -13,18 +14,27 @@ export interface ColumsElement {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+//OnInit
+//implements AfterViewInit
+export class TableComponent {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @Output() saveDelete: EventEmitter<number> = new EventEmitter<number>();
   
   dataSourceColums: ColumsElement[] = [];
   columnsToDisplay: string[] = this.dataSourceColums.map(x => x.property);
-  dataSource: Diary[] = [];
+  //dataSource: Diary[] = [];
+
+  //dataSource = new MatTableDataSource<Diary>(ELEMENT_DATA);
+  dataSource: any;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  /*ngOnInit() {
+  }*/
+
+  /*gAfterViewInit() {
+  }*/
 
   async setDataColums(dataColums: any): Promise<void> {
     console.log("Response Componete A: ", dataColums);
@@ -34,7 +44,9 @@ export class TableComponent implements OnInit {
   }
 
   async setDataRows(dataRows: any): Promise<void> {
-    this.dataSource = dataRows;
+    //this.dataSource = dataRows;
+    this.dataSource = new MatTableDataSource<Diary>(dataRows);
+    this.dataSource.paginator = this.paginator;
   }
 
   deleteRecord(id: number) {
