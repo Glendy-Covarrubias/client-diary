@@ -20,6 +20,7 @@ export class TableComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @Output() saveDelete: EventEmitter<number> = new EventEmitter<number>();
+  @Output() openEdit: EventEmitter<number> = new EventEmitter<number>();
   
   dataSourceColums: ColumsElement[] = [];
   columnsToDisplay: string[] = this.dataSourceColums.map(x => x.property);
@@ -52,5 +53,10 @@ export class TableComponent {
   deleteRecord(id: number) {
     console.log("Se eliminar el numero de registro hijo: ", id);
     this.saveDelete.emit(id);
+  }
+
+  editRecord(id: number) {
+    console.log("ACTION DE EDITAR el numero de registro hijo: ", id);
+    this.openEdit.emit(id);
   }
 }

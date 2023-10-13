@@ -26,4 +26,8 @@ export class DiaryService {
   public deleteRecord(id: number): Observable<any> {
     return this.http.delete<any>(`${this.endpoint}/diary/${id}`);
   }
+
+  public getRecord(id: number): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/diary/${id}`);
+  }
 }

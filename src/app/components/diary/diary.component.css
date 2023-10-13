@@ -3,12 +3,9 @@
     /*align-content: center;*/
     /*align-items: center;*/
     /*width: 100%;*/
+    padding: 20px;
 }
 
 .container-table {
     margin-top: 1em;
-}
-
-table {
-    /*width: 100%;*/
 }

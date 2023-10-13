@@ -17,3 +17,8 @@ body {
 .mat-dialog-content {
     overflow: hidden !important;
 }
+
+.mat-form-field-infix {
+    width: auto !important;
+    /*width: 180px;*/
+}

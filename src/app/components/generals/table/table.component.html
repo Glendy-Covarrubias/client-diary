@@ -7,7 +7,7 @@
       </label>
       <ng-container *ngIf="column.actions !== []">
         <ng-container *ngFor="let columnAction of column.actions;">
-          <button mat-icon-button *ngIf="columnAction === 'action_update'">
+          <button mat-icon-button *ngIf="columnAction === 'action_update'" (click)="editRecord(element.id)">
             <mat-icon aria-label="icon-action">edit</mat-icon>
           </button>
           <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="deleteRecord(element.id)">
@@ -17,7 +17,6 @@
       </ng-container>
     </td>
   </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 </table>

@@ -9,7 +9,7 @@ import { ActivityRegisterComponent } from 'src/app/components/activity-register/
   templateUrl: './diary.component.html',
   styleUrls: ['./diary.component.css']
 })
-export class DiaryComponent implements OnInit  {
+export class DiaryComponent implements OnInit {
 
   @ViewChild('tableDiary')
   tableDiary!: TableComponent;
@@ -43,7 +43,7 @@ export class DiaryComponent implements OnInit  {
     });
   }
 
-  openDialog() : void {
+  openDialog(): void {
     const dialogRef = this.dialog.open(ActivityRegisterComponent);
     dialogRef.afterClosed().subscribe(result => {
       this.getDiary();
@@ -61,6 +61,20 @@ export class DiaryComponent implements OnInit  {
         console.log("There was an error in retrieving data from the server delete", error);
       },
       complete: () => console.log('Observer got a complete notification delete'),
+    })
+  }
+
+  async openEditRecord(id: number): Promise<void> {
+    console.log("REVISIÓN padre EDIT:", id);
+    this.diaryService.getRecord(id).subscribe({
+      next: (response: any) => {
+        console.log("Response openEdit: ", response);
+        this.openDialog();
+      },
+      error: (error) => {
+        console.log("There was an error in retrieving data from the server openEdit", error);
+      },
+      complete: () => console.log('Observer got a complete notification openEdit'),
     })
   }
 
