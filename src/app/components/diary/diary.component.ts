@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DiaryService } from 'src/app/services/diary.service';
 import { TableComponent } from '../generals/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityRegisterComponent } from 'src/app/components/activity-register/activity-register.component';
 import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
-import { DataDiary } from 'src/app/models/diary'
 
 @Component({
   selector: 'app-diary',
@@ -16,7 +15,6 @@ export class DiaryComponent implements OnInit {
   @ViewChild('tableDiary')
   tableDiary!: TableComponent;
 
-
   configColumns = [
     { property: "id", name: "No." },
     { property: "name", name: "Propietario" },
@@ -26,9 +24,8 @@ export class DiaryComponent implements OnInit {
   ];
 
   constructor(
-    private diaryService: DiaryService, 
+    private diaryService: DiaryService,
     public dialog: MatDialog
-    //public activity: ActivityRegisterComponent
   ) { }
 
   ngOnInit(): void {
@@ -50,26 +47,8 @@ export class DiaryComponent implements OnInit {
     });
   }
 
-  
-  
   openDialog(dataDialog: IDialog = defaultDialog): void {
-   
-    
-    const dialogRef = this.dialog.open(ActivityRegisterComponent, { data: dataDialog})
-
-    /*await dialogRef.afterOpened().subscribe({
-      next: async () => {
-        if(data.edit){
-          //await this.activity.getRecordEdit(data);
-          await this.activity.ngAfterContentInit(data);
-        }
-      },
-      error: (error) => {
-        console.log("There was an error in retrieving data from the server openEdit", error);
-      },
-      complete: () => console.log('Observer got a complete notification openEdit'),
-    })*/
-    
+    const dialogRef = this.dialog.open(ActivityRegisterComponent, { data: dataDialog })
 
     dialogRef.afterClosed().subscribe(result => {
       this.getDiary();
@@ -77,10 +56,8 @@ export class DiaryComponent implements OnInit {
   }
 
   async deleteRecord(id: number): Promise<void> {
-    console.log("REVISIÓN padre:", id)
     this.diaryService.deleteRecord(id).subscribe({
       next: (response: any) => {
-        console.log("Response delete: ", response);
         this.getDiary();
       },
       error: (error) => {
@@ -102,5 +79,4 @@ export class DiaryComponent implements OnInit {
       complete: () => console.log('Observer got a complete notification openEdit'),
     })
   }
-
 }
