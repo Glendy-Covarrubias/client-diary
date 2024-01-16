@@ -1,9 +1,13 @@
 <section class="container-section">
-   <h1>Bitacora</h1>
-   <div align="end">
-      <button mat-stroked-button color="primary" (click)="openDialog()">Agregar</button>
-   </div>
-   <div class="container-table">
-      <app-table #tableDiary (saveDelete) = "deleteRecord($event)"></app-table>
+   <div class="grid">
+      <div class="col-12">
+         <h1>Bitacora</h1>
+      </div>
+      <div class="col-12" align="end">
+         <button mat-stroked-button color="primary" (click)="openDialog()">Agregar</button>
+      </div>
+      <div class="col-12 container-table">
+         <app-table #tableDiary (saveDelete)="deleteRecord($event)" (openEdit)="openEditRecord($event)"></app-table>
+      </div>
    </div>
 </section>

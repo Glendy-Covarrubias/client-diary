@@ -19,3 +19,15 @@ export interface Diary {
     description: string,
     ownerId: number
 }
+
+export class DataDiary {
+    constructor(
+        public id: number,
+        public name: string,
+        public priority: number,
+        public status: any,
+        public description: string,
+        public ownerId: number
+    ) {
+    }
+}
