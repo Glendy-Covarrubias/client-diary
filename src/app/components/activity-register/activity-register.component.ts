@@ -1,15 +1,7 @@
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Inject, Injectable, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, Inject, Injectable, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MyTel, TelInputComponent } from '../generals/tel-input/tel-input.component';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  NgControl,
-  Validators,
-} from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Priority } from '../../interfaces/priority';
 import { DiaryService } from 'src/app/services/diary.service';
 import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
@@ -24,7 +16,7 @@ import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
 @Injectable({
   providedIn: 'root'
 })
-//implements OnInit, AfterViewInit, AfterContentInit, OnChanges
+
 export class ActivityRegisterComponent {
 
   @ViewChild('telInput')
@@ -51,8 +43,7 @@ export class ActivityRegisterComponent {
     private formBuilder: FormBuilder,
     public _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public dataD: any,
-    private diaryService: DiaryService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private diaryService: DiaryService
   ) {
     this.activityForm = this.formBuilder.group({
       id: [null, []],
@@ -63,29 +54,14 @@ export class ActivityRegisterComponent {
       ownerId: [1, []]
       //time: new FormControl('', Validators.required),
       //tel: new FormControl(new MyTel('', '', ''))
-
-
     });
 
     if (dataD.edit) {
-      this.getRecordEdit(dataD);
+      if (dataD.info.data !== null) {
+        this.getRecordEdit(dataD);
+      }
     }
-
-
   }
-
-  /*ngAfterViewInit(data: IDialog = defaultDialog): void {
-    if(data.edit){
-      this.getRecordEdit(data.info);
-    }
-  }*/
-
-  /*ngAfterViewInit(): void {}
-
-  ngAfterContentInit
-
-  ngOnChanges(): void {}*/
-
 
   otherPhone: boolean = false;
   addOtherPhone(): void {
@@ -93,11 +69,8 @@ export class ActivityRegisterComponent {
   }
 
   save(): void {
-    console.log("SAVE DATOS: ", this.activityForm.invalid, this.activityForm.value);
-
     if (!this.activityForm.invalid) {
       if (this.activityForm.controls['id'].value === null) {
-        console.log("CREAR REGISTRO");
         this.diaryService.createDiary(this.activityForm.value).subscribe({
           next: (v) => console.log(`SAVE RESPONSE NEXT:`, v),
           error: (e) => console.error(`SAVE RESPONSE ERROR:`, e),
@@ -107,7 +80,6 @@ export class ActivityRegisterComponent {
           }
         });
       } else {
-        console.log("EDITAR REGISTRO");
         this.diaryService.editDiary(this.activityForm.value).subscribe({
           next: (v) => console.log("SAVE RESPONSE NEXT EDIT: ", v),
           error: (e) => console.error("SAVE RESPONSE ERROR EDIT: ", e),
@@ -120,32 +92,7 @@ export class ActivityRegisterComponent {
     }
   }
 
-
-
   async getRecordEdit(dataDialogH: IDialog = defaultDialog): Promise<void> {
-    /*console.log("SUPONIENDO: ", data, this.activityForm)
-    
-    this.activityForm.controls["name"].patchValue(data.info.data.name);
-    this.changeDetectorRef.detectChanges();*/
-
-    //console.log("SUPONIENDO 2: ", this.activityForm)
-
-
-
-    /*this.activityForm.patchValue({
-      name: "pruebas",
-      description: "pruebas",
-      priority: 'g',
-      status: "1",
-      ownerId: 1
-    });*/
-
-
-    /*this.changeDetectorRef.detectChanges();*/
-    //console.log("SUPONIENDO 2: ", this.activityForm.controls["name"].value)
-
-
-    console.log("Información de edición: ", dataDialogH);
     let infoDataDialog = dataDialogH.info.data;
     let viewDataEdit = {
       id: infoDataDialog.id,
@@ -156,17 +103,5 @@ export class ActivityRegisterComponent {
       ownerId: infoDataDialog.ownerId
     }
     this.activityForm.setValue(viewDataEdit);
-
-
-
-    /*this.activityForm.patchValue({
-      name: "pruebas",
-      description: "pruebas",
-      priority: 'g',
-      status: "1",
-      ownerId: 1
-    });*/
-
-
   }
 }
