@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Priority } from '../../interfaces/priority';
 import { DiaryService } from 'src/app/services/diary.service';
 import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -43,7 +44,8 @@ export class ActivityRegisterComponent {
     private formBuilder: FormBuilder,
     public _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public dataD: any,
-    private diaryService: DiaryService
+    private diaryService: DiaryService,
+    private toastr: ToastrService
   ) {
     this.activityForm = this.formBuilder.group({
       id: [null, []],
@@ -72,8 +74,14 @@ export class ActivityRegisterComponent {
     if (!this.activityForm.invalid) {
       if (this.activityForm.controls['id'].value === null) {
         this.diaryService.createDiary(this.activityForm.value).subscribe({
-          next: (v) => console.log(`SAVE RESPONSE NEXT:`, v),
-          error: (e) => console.error(`SAVE RESPONSE ERROR:`, e),
+          next: (n: any) => {
+            console.log(`SAVE RESPONSE NEXT:`, n);
+            this.toastr.success(`Record ${n.data.name} create on ${new Date(n.data.createdAt).toLocaleString()}`, n.message.toUpperCase());
+          },
+          error: (e) => {
+            console.error(`SAVE RESPONSE ERROR:`, e);
+            this.toastr.error("An error has been detected, please try again later", e.message.toUpperCase());
+          },
           complete: () => {
             console.info(`SAVE RESPONSE COMPLETE`);
             this._dialog.closeAll();
@@ -81,8 +89,14 @@ export class ActivityRegisterComponent {
         });
       } else {
         this.diaryService.editDiary(this.activityForm.value).subscribe({
-          next: (v) => console.log("SAVE RESPONSE NEXT EDIT: ", v),
-          error: (e) => console.error("SAVE RESPONSE ERROR EDIT: ", e),
+          next: (n: any) => {
+            console.log("SAVE RESPONSE NEXT EDIT: ", n);
+            this.toastr.success(`Record ${n.data.name} updated on ${new Date(n.data.updatedAt).toLocaleString()}`, n.message.toUpperCase());
+          },
+          error: (e) => {
+            console.error("SAVE RESPONSE ERROR EDIT: ", e);
+            this.toastr.error("An error has been detected, please try again later", e.message.toUpperCase());
+          },
           complete: () => {
             console.info("SAVE RESPONSE COMPLETE EDIT");
             this._dialog.closeAll();
