@@ -56,7 +56,7 @@ export class TableComponent {
   }
 
   editRecord(id: number) {
-    console.log("ACTION DE EDITAR el numero de registro hijo: ", id);
+    //console.log("ACTION DE EDITAR el numero de registro hijo: ", id);
     this.openEdit.emit(id);
   }
 }

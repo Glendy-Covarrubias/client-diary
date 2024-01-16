@@ -18,9 +18,14 @@ export class DiaryService {
   }
 
   public createDiary(data: Diary): Observable<Diary>{
-    console.log("SAVE SERVICIO:", data);
+    console.log("SAVE SERVICIO CREATE:", data);
     //this.endpoint + `/monitor-califica/lotes`
     return this.http.post<Diary>(`${this.endpoint}/diary`, data);
+  }
+
+  public editDiary(data: Diary): Observable<Diary>{
+    console.log("SAVE SERVICIO EDIT:", data, `${this.endpoint}/diary/${data.id}`);
+    return this.http.put<Diary>(`${this.endpoint}/diary/${data.id}`, data)
   }
 
   public deleteRecord(id: number): Observable<any> {
