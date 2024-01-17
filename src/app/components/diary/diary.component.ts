@@ -4,6 +4,8 @@ import { TableComponent } from '../generals/table/table.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityRegisterComponent } from 'src/app/components/activity-register/activity-register.component';
 import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
+import { ToastrService } from 'ngx-toastr';
+import { MESSAGES, TITLE_VIEW } from 'src/constants';
 
 @Component({
   selector: 'app-diary',
@@ -25,7 +27,8 @@ export class DiaryComponent implements OnInit {
 
   constructor(
     private diaryService: DiaryService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -35,21 +38,15 @@ export class DiaryComponent implements OnInit {
   private getDiary(): void {
     this.diaryService.getAllDiary().subscribe({
       next: (response: any) => {
-        console.log("Response: ", response.data);
-        //this.tableDiary.setDataColums(["id", "createdAt", "updatedAt", "name", "priority", "status", "description", "ownerId"]);
         this.tableDiary.setDataColums(this.configColumns);
         this.tableDiary.setDataRows(response.data);
       },
-      error: (error) => {
-        console.log("There was an error in retrieving data from the server", error);
-      },
-      complete: () => console.log('Observer got a complete notification'),
+      error: (error) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error}`, "Error")
     });
   }
 
   openDialog(dataDialog: IDialog = defaultDialog): void {
-    const dialogRef = this.dialog.open(ActivityRegisterComponent, { data: dataDialog })
-
+    const dialogRef = this.dialog.open(ActivityRegisterComponent, { data: dataDialog });
     dialogRef.afterClosed().subscribe(result => {
       this.getDiary();
     });
@@ -57,26 +54,20 @@ export class DiaryComponent implements OnInit {
 
   async deleteRecord(id: number): Promise<void> {
     this.diaryService.deleteRecord(id).subscribe({
-      next: (response: any) => {
-        this.getDiary();
-      },
-      error: (error) => {
-        console.log("There was an error in retrieving data from the server delete", error);
-      },
-      complete: () => console.log('Observer got a complete notification delete'),
+      next: () => this.getDiary(),
+      error: (error) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error}`, "Error"),
+      complete: () => this.toastr.success(MESSAGES.SUCCES("deleted"), "Succes")
     })
   }
 
   async openEditRecord(id: number): Promise<void> {
     this.diaryService.getRecord(id).subscribe({
       next: (response: any) => {
-        let dataDialog: IDialog = { info: response, edit: true };
+        let dataDialog: IDialog = { info: response, edit: true, title: TITLE_VIEW.ACTIVITY_EDIT };
         this.openDialog(dataDialog);
       },
-      error: (error) => {
-        console.log("There was an error in retrieving data from the server openEdit", error);
-      },
-      complete: () => console.log('Observer got a complete notification openEdit'),
+      error: (error) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error}`, "Error"),
+      complete: () => this.toastr.info("You can start capturing the information update", "Info")
     })
   }
 }

@@ -10,7 +10,7 @@
           <button mat-icon-button *ngIf="columnAction === 'action_update'" (click)="editRecord(element.id)">
             <mat-icon aria-label="icon-action">edit</mat-icon>
           </button>
-          <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="deleteRecord(element.id)">
+          <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="confirmDeleteRecord(element.id)">
             <mat-icon aria-label="icon-action">delete</mat-icon>
           </button>
         </ng-container>
