@@ -1,0 +1,17 @@
+<section [class]="distribution">
+    <mat-icon 
+        aria-hidden="false" 
+        aria-label="icon-warning-information" 
+        [fontIcon]="icon" 
+        [class]="iconColor"
+    ></mat-icon>
+</section>
+<section [class]="distribution">
+    <h1 class="mat-dialog-title">{{title}}</h1>
+</section>
+<mat-dialog-content [class]="distribution" [innerHTML]="message">
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" mat-dialog-close tabindex="-1" (click)="confirm()">{{confirmButtonText}}</button>
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
+</mat-dialog-actions>

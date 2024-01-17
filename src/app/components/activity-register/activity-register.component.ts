@@ -1,12 +1,12 @@
-import { Component, Inject, Injectable, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MyTel, TelInputComponent } from '../generals/tel-input/tel-input.component';
+import { Component, Inject, Injectable } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Priority } from '../../interfaces/priority';
-import { DiaryService } from 'src/app/services/diary.service';
-import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
 import { ToastrService } from 'ngx-toastr';
-
+import { IPriority, catPriority } from 'src/app/interfaces/IPriority'
+import { IStatus, catStatus } from 'src/app/interfaces/IStatus';
+import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
+import { DiaryService } from 'src/app/services/diary.service';
+import { TITLE_VIEW, MESSAGES } from "src/constants";
 
 @Component({
   selector: 'app-activity-register',
@@ -19,27 +19,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ActivityRegisterComponent {
-
-  @ViewChild('telInput')
-  telInput!: TelInputComponent;
-
   public activityForm: FormGroup;
   public closeModal: boolean = false;
+  public titleViewActivity: string = TITLE_VIEW.ACTIVITY_ADD;
 
-  priorities: Priority[] = [
-    { name: 'High', value: 1 },
-    { name: 'Half', value: 2 },
-    { name: 'low', value: 3 }
-  ];
+  priorities: IPriority[] = catPriority;
+  statues: IStatus[] = catStatus;
 
-  statues: Priority[] = [
-    { name: 'Process', value: 1 },
-    { name: 'Stopped', value: 2 },
-    { name: 'Done', value: 3 }
-  ];
-
-  // email: ['', [Validators.email, Validators.minLength(0), Validators.maxLength(100)]],
-  //dateExpirationTodayPF: ['', []],
   constructor(
     private formBuilder: FormBuilder,
     public _dialog: MatDialog,
@@ -49,13 +35,11 @@ export class ActivityRegisterComponent {
   ) {
     this.activityForm = this.formBuilder.group({
       id: [null, []],
-      name: ['g', [Validators.required]],
+      name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       priority: ['', [Validators.required]],
       status: ['', [Validators.required]],
       ownerId: [1, []]
-      //time: new FormControl('', Validators.required),
-      //tel: new FormControl(new MyTel('', '', ''))
     });
 
     if (dataD.edit) {
@@ -65,48 +49,34 @@ export class ActivityRegisterComponent {
     }
   }
 
-  otherPhone: boolean = false;
-  addOtherPhone(): void {
-    this.otherPhone = !this.otherPhone;
-  }
-
   save(): void {
     if (!this.activityForm.invalid) {
       if (this.activityForm.controls['id'].value === null) {
         this.diaryService.createDiary(this.activityForm.value).subscribe({
-          next: (n: any) => {
-            console.log(`SAVE RESPONSE NEXT:`, n);
-            this.toastr.success(`Record ${n.data.name} create on ${new Date(n.data.createdAt).toLocaleString()}`, n.message.toUpperCase());
-          },
-          error: (e) => {
-            console.error(`SAVE RESPONSE ERROR:`, e);
-            this.toastr.error("An error has been detected, please try again later", e.message.toUpperCase());
-          },
-          complete: () => {
-            console.info(`SAVE RESPONSE COMPLETE`);
+          next: (response: any) => {
             this._dialog.closeAll();
-          }
+            this.toastr.info(`Record ${response.data.name} create on ${new Date(response.data.createdAt).toLocaleString()}`, "Info");
+          },
+          error: (e) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${e}`, "Error"),
+          complete: () => this.toastr.success(MESSAGES.SUCCES("create"), "Succes")
         });
       } else {
         this.diaryService.editDiary(this.activityForm.value).subscribe({
-          next: (n: any) => {
-            console.log("SAVE RESPONSE NEXT EDIT: ", n);
-            this.toastr.success(`Record ${n.data.name} updated on ${new Date(n.data.updatedAt).toLocaleString()}`, n.message.toUpperCase());
-          },
-          error: (e) => {
-            console.error("SAVE RESPONSE ERROR EDIT: ", e);
-            this.toastr.error("An error has been detected, please try again later", e.message.toUpperCase());
-          },
-          complete: () => {
-            console.info("SAVE RESPONSE COMPLETE EDIT");
+          next: (response: any) => {
             this._dialog.closeAll();
-          }
+            this.toastr.info(`Record ${response.data.name} updated on ${new Date(response.data.createdAt).toLocaleString()}`, "Info");
+          },
+          error: (e) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${e}`, "Error"),
+          complete: () => this.toastr.success(MESSAGES.SUCCES("edit"), "Succes")
         })
       }
     }
   }
 
   async getRecordEdit(dataDialogH: IDialog = defaultDialog): Promise<void> {
+    if (dataDialogH.title) {
+      this.titleViewActivity = dataDialogH.title;
+    }
     let infoDataDialog = dataDialogH.info.data;
     let viewDataEdit = {
       id: infoDataDialog.id,

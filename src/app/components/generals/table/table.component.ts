@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Diary } from 'src/app/models/diary';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
+import { IDialog } from 'src/app/interfaces/IDialog';
 
 export interface ColumsElement {
   property: string;
@@ -21,7 +24,7 @@ export class TableComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @Output() saveDelete: EventEmitter<number> = new EventEmitter<number>();
   @Output() openEdit: EventEmitter<number> = new EventEmitter<number>();
-  
+
   dataSourceColums: ColumsElement[] = [];
   columnsToDisplay: string[] = this.dataSourceColums.map(x => x.property);
   //dataSource: Diary[] = [];
@@ -29,7 +32,7 @@ export class TableComponent {
   //dataSource = new MatTableDataSource<Diary>(ELEMENT_DATA);
   dataSource: any;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   /*ngOnInit() {
   }*/
@@ -50,8 +53,34 @@ export class TableComponent {
     this.dataSource.paginator = this.paginator;
   }
 
+  confirmDeleteRecord(id: number) {
+    let dataDialog: IDialog = { info: { id: id }, title: "Are you sure you want to delete this record?" };
+    let processConfirm = this.dialog.open(ModalComponent, {
+      data: {
+        distribution: "modal-center",
+        icon: "warning",
+        iconColor: "warn-yellow",
+        message: "<label>Esta operación es irreversible</label>",
+        dataDialog,
+        buttonText: {
+          confirm: 'Delete',
+          cancel: 'Cancel'
+        }
+      }
+    });
+
+    processConfirm.beforeClosed().subscribe(() => {
+      console.log("PADRE FLUJO: ", processConfirm.componentInstance.result)
+      if(processConfirm.componentInstance.result){
+        this.deleteRecord(id);
+      }
+    });
+    
+  }
+
   deleteRecord(id: number) {
     console.log("Se eliminar el numero de registro hijo: ", id);
+    
     this.saveDelete.emit(id);
   }
 
