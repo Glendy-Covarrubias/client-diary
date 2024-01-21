@@ -1,0 +1,16 @@
+.pag-inicio {
+    margin-top: 10%;
+    text-align: center;
+}
+
+[class*=col-],
+[class*=col_],
+[class~=col] {
+    padding: 0;
+}
+
+[class*=grid-],
+[class*=grid_],
+[class~=grid] {
+    margin: 0;
+}

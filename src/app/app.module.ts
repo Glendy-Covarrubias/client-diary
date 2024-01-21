@@ -28,6 +28,7 @@ import { ActivityRegisterComponent } from './components/activity-register/activi
 import { TelInputComponent } from './components/generals/tel-input/tel-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './components/generals/modal/modal.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModalComponent } from './components/generals/modal/modal.component';
     DiaryComponent,
     ActivityRegisterComponent,
     TelInputComponent,
-    ModalComponent
+    ModalComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
