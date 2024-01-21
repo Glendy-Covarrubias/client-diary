@@ -4,7 +4,7 @@
          <h1>Activities</h1>
       </div>
       <div class="col-12" align="end">
-         <button mat-stroked-button color="primary" (click)="openDialog()">Agregar</button>
+         <button mat-stroked-button color="primary" (click)="openDialog()">Add</button>
       </div>
       <div class="col-12 container-table">
          <app-table #tableDiary (saveDelete)="deleteRecord($event)" (openEdit)="openEditRecord($event)"></app-table>

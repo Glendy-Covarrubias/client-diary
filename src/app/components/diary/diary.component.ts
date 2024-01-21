@@ -18,9 +18,9 @@ export class DiaryComponent implements OnInit {
   tableDiary!: TableComponent;
 
   configColumns = [
-    { property: "id", name: "No." },
-    { property: "name", name: "Propietario" },
-    { property: "status", name: "Estatus" },
+    { property: "id", name: "#" },
+    { property: "name", name: "Name" },
+    { property: "status", name: "Status" },
     { property: "description", name: "Description" },
     { property: "action", name: "Action", actions: ["action_update", "action_delete"] }
   ];
@@ -41,7 +41,10 @@ export class DiaryComponent implements OnInit {
         this.tableDiary.setDataColums(this.configColumns);
         this.tableDiary.setDataRows(response.data);
       },
-      error: (error) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error}`, "Error")
+      error: (error) => {
+        console.log("PUBLICANDO ERROR: ", error);
+        this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error.message}`, "Error")
+      }
     });
   }
 

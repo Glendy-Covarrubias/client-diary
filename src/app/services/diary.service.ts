@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Diary } from '../models/diary';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class DiaryService {
 
   public endpoint: string;
   constructor(private http: HttpClient) {
-    this.endpoint = 'http://localhost:3000/api';
+    this.endpoint = `${environment.url_base}/api`
   }
 
   public getAllDiary(): Observable<Array<Diary>>{
