@@ -60,7 +60,7 @@ export class TableComponent {
         distribution: "modal-center",
         icon: "warning",
         iconColor: "warn-yellow",
-        message: "<label>Esta operación es irreversible</label>",
+        message: "<label class='message-tb-info-delete'>Esta operación es irreversible</label>",
         dataDialog,
         buttonText: {
           confirm: 'Delete',
