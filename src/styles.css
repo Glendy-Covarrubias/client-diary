@@ -22,3 +22,8 @@ body {
     width: auto !important;
     /*width: 180px;*/
 }
+
+label.message-tb-info-delete {
+    font-size: 17px;
+    color: orange !important;
+}

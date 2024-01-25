@@ -2,6 +2,48 @@ table {
   width: 100%;
 }
 
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
 .mat-row:hover .mat-cell {
   background-color: rgb(225, 225, 225);
+}
+
+td {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.lb-tb-responsive {
+  display: none;
+}
+
+@media screen and (max-width: 735px) {
+  .mat-table .mat-row {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .mat-table .mat-cell {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .lb-tb-responsive {
+    display: initial;
+    font-weight: bolder;
+    margin-right: 5px;
+  }
+
+  td {
+    place-content: space-between;
+  }
 }

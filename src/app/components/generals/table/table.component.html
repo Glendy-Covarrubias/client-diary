@@ -1,26 +1,27 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
-  <ng-container [matColumnDef]="column.property" *ngFor="let column of dataSourceColums;">
-    <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
-    <td mat-cell *matCellDef="let element">
-      <label *ngIf="column.property !== 'action'" for="lbal">
-        {{element[column.property]}}
-      </label>
-      <ng-container *ngIf="column.actions !== []">
-        <ng-container *ngFor="let columnAction of column.actions;">
-          <button mat-icon-button *ngIf="columnAction === 'action_update'" (click)="editRecord(element.id)">
-            <mat-icon aria-label="icon-action">edit</mat-icon>
-          </button>
-          <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="confirmDeleteRecord(element.id)">
-            <mat-icon aria-label="icon-action">delete</mat-icon>
-          </button>
+<div class="example-table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+    <ng-container [matColumnDef]="column.property" *ngFor="let column of dataSourceColums;">
+      <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
+      <td mat-cell *matCellDef="let element; let index = dataIndex;">
+        <label class="lb-tb-responsive">{{column.name}}:</label>
+        <label *ngIf="column.property !== 'action'" for="lbal">
+          {{column.property ==='id' ? this.dataSource.paginator.pageSize * this.dataSource.paginator.pageIndex + index + 1 : element[column.property]}}
+        </label>
+        <ng-container *ngIf="column.actions !== []">
+          <ng-container *ngFor="let columnAction of column.actions;">
+            <button mat-icon-button *ngIf="columnAction === 'action_update'" (click)="editRecord(element.id)">
+              <mat-icon aria-label="icon-action">edit</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="confirmDeleteRecord(element.id)">
+              <mat-icon aria-label="icon-action">delete</mat-icon>
+            </button>
+          </ng-container>
         </ng-container>
-      </ng-container>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-</table>
-<mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons 
-                 aria-label="Select page of data element">
-</mat-paginator>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of data element">
+  </mat-paginator>
+</div>
