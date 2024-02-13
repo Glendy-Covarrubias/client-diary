@@ -1,11 +1,32 @@
+.modal-center {
+  text-align: center;
+}
+
+.icon-modal-table {
+  font-size: 100px;
+  width: auto;
+  height: auto;
+}
+
+.mat-dialog-title {
+  color: #545454;
+  font-weight: 600;
+}
+
+.mat-dialog-body {
+  color: #545454;
+  font-weight: normal;
+  text-align: center;
+}
+
+.mat-dialog-actions {
+  margin-top: 20px;
+}
+
+.warn-orange {
+  color: #FB8C00;
+}
 
 .warn-yellow {
-    color: #FB8C00;
-    font-size: 100px;
-    width: auto;
-    height: auto;
-  }
-
-.modal-center {
-    text-align: center;
+  color: #f8bb86;
 }

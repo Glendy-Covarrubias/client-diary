@@ -58,12 +58,13 @@ export class TableComponent {
     let processConfirm = this.dialog.open(ModalComponent, {
       data: {
         distribution: "modal-center",
-        icon: "warning",
+        icon: "error_outline",
         iconColor: "warn-yellow",
-        message: "<label class='message-tb-info-delete'>Esta operación es irreversible</label>",
+        message: "<label>You won't be able to revert this!</label>",
         dataDialog,
+        distributionButtons: "center",
         buttonText: {
-          confirm: 'Delete',
+          confirm: 'Yes, delete it!',
           cancel: 'Cancel'
         }
       }

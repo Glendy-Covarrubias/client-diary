@@ -9,11 +9,23 @@
         </label>
         <ng-container *ngIf="column.actions !== []">
           <ng-container *ngFor="let columnAction of column.actions;">
-            <button mat-icon-button *ngIf="columnAction === 'action_update'" (click)="editRecord(element.id)">
-              <mat-icon aria-label="icon-action">edit</mat-icon>
+            <button 
+              mat-icon-button 
+              *ngIf="columnAction === 'action_update'" 
+              (click)="editRecord(element.id)"
+              matTooltip="Edit Activity"
+              matTooltipPosition="left"
+            >
+              <mat-icon aria-label="icon-action" class="icon-action-table icon-tb-edit">edit</mat-icon>
             </button>
-            <button mat-icon-button *ngIf="columnAction === 'action_delete'" (click)="confirmDeleteRecord(element.id)">
-              <mat-icon aria-label="icon-action">delete</mat-icon>
+            <button 
+              mat-icon-button 
+              *ngIf="columnAction === 'action_delete'" 
+              (click)="confirmDeleteRecord(element.id)"
+              matTooltip="Delete Activity"
+              matTooltipPosition="right"
+            >
+              <mat-icon aria-label="icon-action" class="icon-action-table icon-tb-delete">delete</mat-icon>
             </button>
           </ng-container>
         </ng-container>
