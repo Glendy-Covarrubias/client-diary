@@ -5,3 +5,26 @@
 .container-table {
     margin-top: 1em;
 }
+
+.btn-txt-add-activity {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.icon-aling-title , .txt-aling-title {
+    display: inline;
+}
+
+.icon-aling-title {
+    vertical-align: bottom;
+    color: #f3f308d6;
+    font-size: 35px;
+}
+
+.txt-aling-title {
+    margin-left: 10px;
+    color: #757171;
+    font-weight: bold;
+}

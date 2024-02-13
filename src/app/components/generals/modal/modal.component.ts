@@ -17,6 +17,7 @@ export class ModalComponent implements OnInit {
   cancelButtonText = "Cancel"
   dataBuild?: any;
   result?: any = false;
+  distributionButtons?: any = "center";
 
   //@Output() saveConfirm: EventEmitter<any> = new EventEmitter<any>();
 
@@ -25,9 +26,10 @@ export class ModalComponent implements OnInit {
       console.log("MODAL: ", data)
     if (data) {
       this.dataBuild = data.dataDialog;
-      this.distribution = data.distribution || this.distribution;
+      this.distributionButtons = data.distributionButtons || this.distributionButtons;
+      this.distribution = `mat-dialog-body ${data.distribution}` || `mat-dialog-body ${this.distribution}`;
       this.icon = data.icon || this.icon;
-      this.iconColor = data.iconColor || this.iconColor;
+      this.iconColor = `icon-modal-table ${data.iconColor}` || `icon-modal-table ${this.iconColor}`;
       this.title = data.dataDialog.title || this.title;
       this.message = data.message || this.message;
       if (data.buttonText) {

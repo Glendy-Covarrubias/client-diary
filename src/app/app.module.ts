@@ -17,6 +17,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -60,6 +61,7 @@ import { LoginComponent } from './components/login/login.component';
     MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatTooltipModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],

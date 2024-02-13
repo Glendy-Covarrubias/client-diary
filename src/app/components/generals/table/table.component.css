@@ -22,6 +22,11 @@ td {
   display: none;
 }
 
+
+.icon-action-table {
+  color: #757171;
+}
+
 @media screen and (max-width: 735px) {
   .mat-table .mat-row {
     flex-wrap: wrap;
