@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Diary } from '../models/diary';
 import { environment } from 'src/environments/environment';
 
@@ -10,12 +10,17 @@ import { environment } from 'src/environments/environment';
 export class DiaryService {
 
   public endpoint: string;
+
   constructor(private http: HttpClient) {
-    this.endpoint = `${environment.url_base}/api`
+    this.endpoint = `${environment.url_base}/api`;
   }
 
   public getAllDiary(): Observable<Array<Diary>>{
     return this.http.get<Array<Diary>>(`${this.endpoint}/diaries`);
+    //INTERCEPTOR Manual
+    /*const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${token}`);
+    return this.http.get<Array<Diary>>(`${this.endpoint}/diaries`, { headers: headers });*/
   }
 
   public createDiary(data: Diary): Observable<Diary>{

@@ -6,6 +6,7 @@ import { ActivityRegisterComponent } from 'src/app/components/activity-register/
 import { IDialog, defaultDialog } from 'src/app/interfaces/IDialog';
 import { ToastrService } from 'ngx-toastr';
 import { MESSAGES, TITLE_VIEW } from 'src/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-diary',
@@ -28,7 +29,8 @@ export class DiaryComponent implements OnInit {
   constructor(
     private diaryService: DiaryService,
     public dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +74,10 @@ export class DiaryComponent implements OnInit {
       error: (error) => this.toastr.error(`${MESSAGES.ERROR} ERROR: ${error}`, "Error"),
       complete: () => this.toastr.info("You can start capturing the information update", "Info")
     })
+  }
+
+  logOut() {
+    localStorage.removeItem("token");
+    this.router.navigate(['login']);
   }
 }

@@ -1,15 +1,27 @@
-<section class="container-section pag-inicio">
-    <div class="grid">
-        <div class="col-12">
-            <h1>Welcome</h1>
+<section class="container-login">
+    <!--<h1>Sistema de agenda</h1>-->
+    <form class="container-form-login" [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="grid-center">
+            <div class="col-7">
+                <h1>Log in</h1>
+            </div>
         </div>
-        <div class="col-12">
-            <label for="Momentaeno">
-                Start (momentary) of the activity organizer system
-            </label>
+        <div class="col-7">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>User</mat-label>
+                <input matInput formControlName="username" placeholder="User">
+            </mat-form-field>
         </div>
-        <div class="col-12">
-            <a routerLink="/diary">Start</a>
+        <div class="col-7">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Password">
+            </mat-form-field>
         </div>
-    </div>
- </section>
+        <div class="col-7">
+            <div class="content-button-login">
+                <button mat-raised-button color="primary">Log in</button>
+            </div>
+        </div>
+    </form>
+</section>

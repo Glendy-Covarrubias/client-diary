@@ -1,16 +1,25 @@
-.pag-inicio {
-    margin-top: 10%;
+.container-login {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top, pink, purple);
+    position: relative;
+}
+
+.container-form-login {
+    background-color: #FFF;
+    border-radius: 15px;
+    margin: auto;
+    position: absolute;
+    width: 30%;
+    top: 25%;
+    left: 35%;
+    padding: 30px;
+}
+
+.container-form-login h1 {
     text-align: center;
 }
 
-[class*=col-],
-[class*=col_],
-[class~=col] {
-    padding: 0;
-}
-
-[class*=grid-],
-[class*=grid_],
-[class~=grid] {
-    margin: 0;
+.content-button-login {
+    text-align: center;
 }
